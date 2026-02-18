@@ -1,3 +1,4 @@
+using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -5,6 +6,9 @@ public class BolaScript : MonoBehaviour
 {
     [Header("Atributos")]
     [SerializeField] private float Velocidade;
+
+    [Header("HUD")]
+    [SerializeField] private GameObject ComecarText;
 
     private Rigidbody2D rigid;
 
@@ -15,9 +19,16 @@ public class BolaScript : MonoBehaviour
     public float DirecY;
 
     int Toques = 0;
+    bool PodeAndar = false;
+
+    Vector2 PosicaoInicial;
 
     private void Awake()
     {
+        PosicaoInicial = gameObject.transform.position;
+
+        ComecarText.SetActive(true);
+
         EixoX = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
         EixoY = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
 
@@ -26,13 +37,15 @@ public class BolaScript : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    private void Update()
     {
-        
+        Comecar();
     }
 
     void FixedUpdate()
     {
+        if (!PodeAndar) return;
+
         Vector2 novaPosicao = rigid.position + (Vector2.right * (EixoX * DirecX) * Velocidade * Time.fixedDeltaTime) + (Vector2.up * (EixoY * DirecY) * Velocidade * Time.fixedDeltaTime);
         rigid.MovePosition(novaPosicao);
     }
@@ -54,6 +67,16 @@ public class BolaScript : MonoBehaviour
         }
     }
 
+    private void Comecar()
+    {
+        if (Input.GetKeyDown(KeyCode.Return) && !PodeAndar)
+        {
+            ComecarText.SetActive(false);
+
+            PodeAndar = true;
+        }
+    }
+
     private void AumentarVelocidade()
     {
         if(Toques % 3 == 0)
@@ -67,5 +90,13 @@ public class BolaScript : MonoBehaviour
     {
         DirecX = UnityEngine.Random.RandomRange(0.7f, 1f);
         DirecY = UnityEngine.Random.RandomRange(0.7f, 1f);
+    }
+
+    public void Recomecar()
+    {
+        PodeAndar = false;
+        gameObject.transform.position = PosicaoInicial;
+
+        ComecarText.SetActive(true);
     }
 }
