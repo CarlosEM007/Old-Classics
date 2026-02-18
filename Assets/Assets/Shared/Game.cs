@@ -12,5 +12,6 @@ namespace Assets.Assets.Shared
     public class Game : ScriptableObject
     {
         [SerializeField] public string Name;
+        [SerializeField] public int SceneID;
     }
 }
