@@ -135,6 +135,12 @@ namespace Assets.Assets.Shared
         {
             for(int i = 0; i <= Textos.Count - 1; i++)
             {
+                if(i > Valores.Count - 1)
+                {
+                    Textos[i].text = "";
+                    continue;
+                }
+
                 string valor = Valores[i] ?? "";
                 Textos[i].text = valor;
             }
