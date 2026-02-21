@@ -2,101 +2,106 @@ using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class BolaScript : MonoBehaviour
+namespace OldClassics.Games.Pong
 {
-    [Header("Atributos")]
-    [SerializeField] private float Velocidade;
-
-    [Header("HUD")]
-    [SerializeField] private GameObject ComecarText;
-
-    private Rigidbody2D rigid;
-
-    public float EixoX;
-    public float EixoY;
-
-    public float DirecX;
-    public float DirecY;
-
-    int Toques = 0;
-    bool PodeAndar = false;
-
-    Vector2 PosicaoInicial;
-
-    private void Awake()
+    public class BolaScript : MonoBehaviour
     {
-        PosicaoInicial = gameObject.transform.position;
+        [Header("Atributos")]
+        [SerializeField] private float Velocidade;
 
-        ComecarText.SetActive(true);
+        [Header("HUD")]
+        [SerializeField] private GameObject ComecarText;
 
-        EixoX = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
-        EixoY = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
+        private Rigidbody2D rigid;
 
-        AlterarDirecaoBola();
+        public float EixoX;
+        public float EixoY;
 
-        rigid = GetComponent<Rigidbody2D>();
-    }
+        public float DirecX;
+        public float DirecY;
 
-    private void Update()
-    {
-        Comecar();
-    }
+        int Toques = 0;
+        bool PodeAndar = false;
 
-    void FixedUpdate()
-    {
-        if (!PodeAndar) return;
+        Vector2 PosicaoInicial;
 
-        Vector2 novaPosicao = rigid.position + (Vector2.right * (EixoX * DirecX) * Velocidade * Time.fixedDeltaTime) + (Vector2.up * (EixoY * DirecY) * Velocidade * Time.fixedDeltaTime);
-        rigid.MovePosition(novaPosicao);
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.collider.tag == "Raquete")
+        private void Awake()
         {
-            EixoX *= -1;
+            PosicaoInicial = gameObject.transform.position;
 
-            Toques += 1;
-            AumentarVelocidade();
+            ComecarText.SetActive(true);
+
+            EixoX = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
+            EixoY = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
+
             AlterarDirecaoBola();
+
+            rigid = GetComponent<Rigidbody2D>();
         }
 
-        if(collision.collider.tag == "Parede")
+        private void Update()
         {
-            EixoY *= -1;
+            Comecar();
         }
-    }
 
-    private void Comecar()
-    {
-        if (Input.GetKeyDown(KeyCode.Return) && !PodeAndar)
+        void FixedUpdate()
         {
-            ComecarText.SetActive(false);
+            if (!PodeAndar) return;
 
-            PodeAndar = true;
+            Vector2 novaPosicao = rigid.position + (Vector2.right * (EixoX * DirecX) * Velocidade * Time.fixedDeltaTime) + (Vector2.up * (EixoY * DirecY) * Velocidade * Time.fixedDeltaTime);
+            rigid.MovePosition(novaPosicao);
         }
-    }
 
-    private void AumentarVelocidade()
-    {
-        if(Toques % 3 == 0)
+        private void OnCollisionEnter2D(Collision2D collision)
         {
-            Velocidade += 1;
-            Toques = 0;
+            if (collision.collider.tag == "Raquete")
+            {
+                EixoX *= -1;
+
+                Toques += 1;
+                AumentarVelocidade();
+                AlterarDirecaoBola();
+            }
+
+            if (collision.collider.tag == "Parede")
+            {
+                EixoY *= -1;
+            }
+        }
+
+        private void Comecar()
+        {
+            if (Input.GetKeyDown(KeyCode.Return) && !PodeAndar)
+            {
+                ComecarText.SetActive(false);
+
+                PodeAndar = true;
+            }
+        }
+
+        private void AumentarVelocidade()
+        {
+            if (Toques % 3 == 0)
+            {
+                Velocidade += 1;
+                Toques = 0;
+            }
+        }
+
+        private void AlterarDirecaoBola()
+        {
+            DirecX = UnityEngine.Random.RandomRange(0.7f, 1f);
+            DirecY = UnityEngine.Random.RandomRange(0.7f, 1f);
+        }
+
+        public void Recomecar()
+        {
+            PodeAndar = false;
+            gameObject.transform.position = PosicaoInicial;
+
+            ComecarText.SetActive(true);
         }
     }
 
-    private void AlterarDirecaoBola()
-    {
-        DirecX = UnityEngine.Random.RandomRange(0.7f, 1f);
-        DirecY = UnityEngine.Random.RandomRange(0.7f, 1f);
-    }
-
-    public void Recomecar()
-    {
-        PodeAndar = false;
-        gameObject.transform.position = PosicaoInicial;
-
-        ComecarText.SetActive(true);
-    }
 }
+
