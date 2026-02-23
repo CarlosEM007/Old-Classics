@@ -8,7 +8,6 @@ public class BlocosControllerScript : MonoBehaviour
 
     void Start()
     {
-        Tilemap tilemap = GetComponent<Tilemap>();
         BoundsInt bounds = tilemap.cellBounds;
 
         Color[] Cores = SelecionadorDeCores();

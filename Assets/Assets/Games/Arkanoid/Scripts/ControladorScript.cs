@@ -6,15 +6,9 @@ public class ControladorScript : MonoBehaviour
     public float X;
     public float Y;
 
-    void Start()
+    void Awake()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        DirecaoInicial();
     }
 
     public void AlterarDirecao(HitSide LadoBloco)
@@ -22,17 +16,23 @@ public class ControladorScript : MonoBehaviour
         switch (LadoBloco)
         {
             case HitSide.Left:
-                X *= -1;
+                X = -1;
                 break;
             case HitSide.Right:
-                X *= 1;
+                X = 1;
                 break;
             case HitSide.Top:
-                Y *= 1;
+                Y = 1;
                 break;
             case HitSide.Bottom:
-                Y *= -1;
+                Y = -1;
                 break;
         }
+    }
+
+    private void DirecaoInicial()
+    {
+        X = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
+        Y = 1;
     }
 }

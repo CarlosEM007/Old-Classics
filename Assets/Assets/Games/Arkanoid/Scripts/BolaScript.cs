@@ -12,26 +12,58 @@ namespace OldClassics.Games.Arkanoid
 
         [Header("Atributos")]
         [SerializeField] private float cellPickOffset = 0.01f;
+        [SerializeField] private float Velocidade;
         [SerializeField] private float EixoX;
         [SerializeField] private float EixoY;
+        [SerializeField] private float DirecX;
+        [SerializeField] private float DirecY;
 
-        void Start()
+        private Vector3 PosicaoInicial;
+
+        private Rigidbody2D rigid;
+
+        void Awake()
         {
+            PosicaoInicial = gameObject.transform.position;
 
+            rigid = GetComponent<Rigidbody2D>();
+
+            AlterarDirecaoBola();
         }
 
         void Update()
         {
+            EixoX = Controlador.X;
+            EixoY = Controlador.Y;
+        }
 
+        void FixedUpdate()
+        {
+            Vector2 novaPosicao = rigid.position + (Vector2.right * (EixoX * DirecX) * Velocidade * Time.fixedDeltaTime) + (Vector2.up * (EixoY * DirecY) * Velocidade * Time.fixedDeltaTime);
+            rigid.MovePosition(novaPosicao);
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
             DetectarColisaoTijolos(collision);
+
+            if (collision.collider.tag == "Raquete")
+            {
+                Controlador.Y = 1;
+
+                AlterarDirecaoBola();
+            }
+
+            if (collision.collider.tag == "Parede")
+            {
+                Controlador.X *= -1;
+            }
         }
 
         private void DetectarColisaoTijolos(Collision2D collision)
         {
+            if (!collision.collider.CompareTag("Tijolos")) return;
+
             Tilemap Tile = collision.collider.GetComponent<Tilemap>();
 
             if (Tile == null) return;
@@ -60,6 +92,12 @@ namespace OldClassics.Games.Arkanoid
                 hit = (n.y > 0f) ? HitSide.Top : HitSide.Bottom;
 
             Controlador.AlterarDirecao(hit);
+        }
+
+        private void AlterarDirecaoBola()
+        {
+            DirecX = UnityEngine.Random.RandomRange(0.7f, 1f);
+            DirecY = UnityEngine.Random.RandomRange(0.7f, 1f);
         }
     }
 }
