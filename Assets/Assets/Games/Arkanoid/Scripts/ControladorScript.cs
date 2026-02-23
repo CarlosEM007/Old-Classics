@@ -1,8 +1,11 @@
+using Assets.Assets.Games.Arkanoid.Enum;
 using UnityEngine;
 
 public class ControladorScript : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public float X;
+    public float Y;
+
     void Start()
     {
         
@@ -12,5 +15,24 @@ public class ControladorScript : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void AlterarDirecao(HitSide LadoBloco)
+    {
+        switch (LadoBloco)
+        {
+            case HitSide.Left:
+                X *= -1;
+                break;
+            case HitSide.Right:
+                X *= 1;
+                break;
+            case HitSide.Top:
+                Y *= 1;
+                break;
+            case HitSide.Bottom:
+                Y *= -1;
+                break;
+        }
     }
 }
