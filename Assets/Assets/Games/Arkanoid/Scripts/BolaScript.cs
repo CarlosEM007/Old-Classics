@@ -35,7 +35,9 @@ namespace OldClassics.Games.Arkanoid
 
         void FixedUpdate()
         {
-            Vector2 novaPosicao = rigid.position + (Vector2.right * (Eixos.x * Direcoes.x) * Velocidade * Time.fixedDeltaTime) + (Vector2.up * (Eixos.y * Direcoes.y) * Velocidade * Time.fixedDeltaTime);
+            Vector2 NovaDirecao = new Vector2(Eixos.x * Direcoes.x, Eixos.y * Direcoes.y);
+
+            Vector2 novaPosicao = rigid.position + NovaDirecao * Velocidade * Time.fixedDeltaTime;
             rigid.MovePosition(novaPosicao);
         }
 
@@ -56,9 +58,16 @@ namespace OldClassics.Games.Arkanoid
 
         private void DetectarColisaoParede(Collision2D collision)
         {
-            if (!collision.collider.CompareTag("Parede")) return;
+            if (collision.collider.CompareTag("Parede"))
+            {
+                Eixos.x *= -1;
+            }
 
-            DetectarPosicaoRelacaoTile(collision, false);
+            if (collision.collider.CompareTag("Teto"))
+            {
+                Eixos.y *= -1;
+            }
+
         }
 
         private void DetectarPosicaoRelacaoTile(Collision2D collision, bool Deletar)
@@ -79,6 +88,7 @@ namespace OldClassics.Games.Arkanoid
             if (Deletar)
             {
                 Tile.SetTile(cell, null);
+                Controlador.AtualizarPontos();
             }
         }
 
@@ -93,9 +103,10 @@ namespace OldClassics.Games.Arkanoid
             float distanciaCentro = (transform.position.x - raquete.center.x) / half;
             distanciaCentro = Mathf.Clamp(distanciaCentro, -1f, 1);
 
-            Direcoes.x = distanciaCentro;
+            Direcoes.x = Mathf.Abs(distanciaCentro);
             Direcoes.y = Random.Range(0.7f, 1f);
 
+            Eixos.x = distanciaCentro > 0 ? 1 : -1;
             Eixos.y = 1;
         }
         #endregion
