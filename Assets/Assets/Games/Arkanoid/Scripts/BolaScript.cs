@@ -13,10 +13,8 @@ namespace OldClassics.Games.Arkanoid
         [Header("Atributos")]
         [SerializeField] private float cellPickOffset = 0.01f;
         [SerializeField] private float Velocidade;
-        [SerializeField] private float EixoX;
-        [SerializeField] private float EixoY;
-        [SerializeField] private float DirecX;
-        [SerializeField] private float DirecY;
+        [SerializeField] private Vector2 Eixos;
+        [SerializeField] private Vector2 Direcoes;
 
         private Vector3 PosicaoInicial;
 
@@ -28,42 +26,43 @@ namespace OldClassics.Games.Arkanoid
 
             rigid = GetComponent<Rigidbody2D>();
 
-            AlterarDirecaoBola();
-        }
+            Direcoes.x = Random.RandomRange(0.7f, 1f);
+            Direcoes.y = Random.RandomRange(0.7f, 1f);
 
-        void Update()
-        {
-            EixoX = Controlador.X;
-            EixoY = Controlador.Y;
+            Eixos.x = Random.Range(0, 2) == 0 ? -1 : 1;
+            Eixos.y = 1;
         }
 
         void FixedUpdate()
         {
-            Vector2 novaPosicao = rigid.position + (Vector2.right * (EixoX * DirecX) * Velocidade * Time.fixedDeltaTime) + (Vector2.up * (EixoY * DirecY) * Velocidade * Time.fixedDeltaTime);
+            Vector2 novaPosicao = rigid.position + (Vector2.right * (Eixos.x * Direcoes.x) * Velocidade * Time.fixedDeltaTime) + (Vector2.up * (Eixos.y * Direcoes.y) * Velocidade * Time.fixedDeltaTime);
             rigid.MovePosition(novaPosicao);
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
             DetectarColisaoTijolos(collision);
-
-            if (collision.collider.tag == "Raquete")
-            {
-                Controlador.Y = 1;
-
-                AlterarDirecaoBola();
-            }
-
-            if (collision.collider.tag == "Parede")
-            {
-                Controlador.X *= -1;
-            }
+            DetectarColisaoParede(collision);
+            DetectarColisaoRaquete(collision);
         }
 
+        #region Detectar Colisões
         private void DetectarColisaoTijolos(Collision2D collision)
         {
             if (!collision.collider.CompareTag("Tijolos")) return;
 
+            DetectarPosicaoRelacaoTile(collision, true);
+        }
+
+        private void DetectarColisaoParede(Collision2D collision)
+        {
+            if (!collision.collider.CompareTag("Parede")) return;
+
+            DetectarPosicaoRelacaoTile(collision, false);
+        }
+
+        private void DetectarPosicaoRelacaoTile(Collision2D collision, bool Deletar)
+        {
             Tilemap Tile = collision.collider.GetComponent<Tilemap>();
 
             if (Tile == null) return;
@@ -77,8 +76,29 @@ namespace OldClassics.Games.Arkanoid
 
             SideFromNormal(contact.normal);
 
-            Tile.SetTile(cell, null);
+            if (Deletar)
+            {
+                Tile.SetTile(cell, null);
+            }
         }
+
+        private void DetectarColisaoRaquete(Collision2D collision)
+        {
+            if (!collision.collider.CompareTag("Raquete")) return;
+
+            Bounds raquete = collision.collider.bounds;
+
+            float half = raquete.extents.x;
+
+            float distanciaCentro = (transform.position.x - raquete.center.x) / half;
+            distanciaCentro = Mathf.Clamp(distanciaCentro, -1f, 1);
+
+            Direcoes.x = distanciaCentro;
+            Direcoes.y = Random.Range(0.7f, 1f);
+
+            Eixos.y = 1;
+        }
+        #endregion
 
         private void SideFromNormal(Vector2 n)
         {
@@ -91,13 +111,26 @@ namespace OldClassics.Games.Arkanoid
             else
                 hit = (n.y > 0f) ? HitSide.Top : HitSide.Bottom;
 
-            Controlador.AlterarDirecao(hit);
+            AlterarDirecao(hit);
         }
 
-        private void AlterarDirecaoBola()
+        public void AlterarDirecao(HitSide LadoBloco)
         {
-            DirecX = UnityEngine.Random.RandomRange(0.7f, 1f);
-            DirecY = UnityEngine.Random.RandomRange(0.7f, 1f);
+            switch (LadoBloco)
+            {
+                case HitSide.Left:
+                    Eixos.x = -1;
+                    break;
+                case HitSide.Right:
+                    Eixos.x = 1;
+                    break;
+                case HitSide.Top:
+                    Eixos.y = 1;
+                    break;
+                case HitSide.Bottom:
+                    Eixos.y = -1;
+                    break;
+            }
         }
     }
 }

@@ -268,10 +268,9 @@ GameObject:
   - component: {fileID: 199918877}
   - component: {fileID: 199918876}
   - component: {fileID: 199918878}
-  - component: {fileID: 199918879}
   m_Layer: 0
   m_Name: Tijolos
-  m_TagString: Untagged
+  m_TagString: Tijolos
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1226,19 +1225,6 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
---- !u!114 &199918879
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 199918874}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66873e1e4ed7db4448336e000185921c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BlocosScript
-  tilemap: {fileID: 199918877}
 --- !u!1 &437649696
 GameObject:
   m_ObjectHideFlags: 0
@@ -1248,6 +1234,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 437649698}
+  - component: {fileID: 437649700}
+  - component: {fileID: 437649699}
   m_Layer: 0
   m_Name: Controlador
   m_TagString: Untagged
@@ -1270,6 +1258,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &437649699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437649696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98614d8cc84a8ee4f803bd9864e44372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ControladorScript
+  X: 0
+  Y: 0
+--- !u!114 &437649700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437649696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66873e1e4ed7db4448336e000185921c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BlocosControllerScript
+  tilemap: {fileID: 199918877}
 --- !u!1 &675734512
 GameObject:
   m_ObjectHideFlags: 0
@@ -1285,7 +1300,7 @@ GameObject:
   - component: {fileID: 675734517}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Raquete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3434,8 +3449,10 @@ GameObject:
   - component: {fileID: 1767771017}
   - component: {fileID: 1767771018}
   - component: {fileID: 1767771019}
+  - component: {fileID: 1767771020}
+  - component: {fileID: 1767771021}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: Bola
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3541,6 +3558,61 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1767771020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767771016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6baec53e1695c1143a8f546fb42df5b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OldClassics.Games.Arkanoid.BolaScript
+  Controlador: {fileID: 437649699}
+  cellPickOffset: 0.01
+  Velocidade: 5
+  EixoX: 0
+  EixoY: 0
+  DirecX: 0
+  DirecY: 0
+--- !u!58 &1767771021
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767771016}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.0028155446, y: 0.00000011920929}
+  m_Radius: 0.25055826
 --- !u!1 &1964150913
 GameObject:
   m_ObjectHideFlags: 0
@@ -3555,7 +3627,7 @@ GameObject:
   - component: {fileID: 1964150915}
   m_Layer: 0
   m_Name: Pontos
-  m_TagString: Untagged
+  m_TagString: Parede
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
