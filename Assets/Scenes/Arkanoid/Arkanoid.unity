@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5000
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8efa781238df44841969681782a37284, type: 2}
   m_sharedMaterial: {fileID: -4407039410083228596, guid: 8efa781238df44841969681782a37284, type: 2}
@@ -1542,8 +1542,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98614d8cc84a8ee4f803bd9864e44372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ControladorScript
-  HighScoreText: {fileID: 1788009711}
-  ScoreText: {fileID: 28262611}
 --- !u!114 &437649700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1556,7 +1554,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66873e1e4ed7db4448336e000185921c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BlocosControllerScript
-  tilemap: {fileID: 199918877}
 --- !u!1 &675734512
 GameObject:
   m_ObjectHideFlags: 0
@@ -1735,9 +1732,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 942b1edfdf963ba4b8829bbc09d01662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerScript
-  Velocidade: 8
-  KeyCodeEsq: 97
-  KeyCodeDir: 100
 --- !u!1 &727531475
 GameObject:
   m_ObjectHideFlags: 0
@@ -4226,7 +4220,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.01
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 0
@@ -4253,11 +4247,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6baec53e1695c1143a8f546fb42df5b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OldClassics.Games.Arkanoid.BolaScript
-  Controlador: {fileID: 437649699}
-  cellPickOffset: 0.01
-  Velocidade: 7
-  Eixos: {x: 0, y: 0}
-  Direcoes: {x: 0, y: 0}
 --- !u!58 &1767771021
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -4351,7 +4340,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5000
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8efa781238df44841969681782a37284, type: 2}
   m_sharedMaterial: {fileID: -4407039410083228596, guid: 8efa781238df44841969681782a37284, type: 2}

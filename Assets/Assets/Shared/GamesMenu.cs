@@ -14,10 +14,10 @@ namespace Assets.Assets.Shared
         [SerializeField] private Color Selecionado;
         [SerializeField] private Color Padrao;
 
-        [SerializeField] private int IDScene;
+        [SerializeField] protected int IDScene;
 
-        int Indice;
-        int AbaMenu;
+        protected int Indice;
+        protected int AbaMenu;
 
         void Start()
         {
@@ -86,7 +86,7 @@ namespace Assets.Assets.Shared
         {
             if (AbaMenu == 0)
             {
-                if (Textos[Indice].text == "Voltar")
+                if (Indice == TextosAba1.Count - 1)
                 {
                     AlterarCena("", 0);
                 }
