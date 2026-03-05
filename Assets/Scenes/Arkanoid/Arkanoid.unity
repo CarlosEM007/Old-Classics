@@ -1539,9 +1539,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 437649696}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98614d8cc84a8ee4f803bd9864e44372, type: 3}
+  m_Script: {fileID: 11500000, guid: ff7111182c9545e47a80d3fd41168a2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ControladorScript
+  HighScoreText: {fileID: 1788009711}
+  ScoreText: {fileID: 28262611}
 --- !u!114 &437649700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1551,9 +1553,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 437649696}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66873e1e4ed7db4448336e000185921c, type: 3}
+  m_Script: {fileID: 11500000, guid: 154c0eb9f12a0a149aa075087b357931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BlocosControllerScript
+  tilemap: {fileID: 199918877}
 --- !u!1 &675734512
 GameObject:
   m_ObjectHideFlags: 0
@@ -1729,9 +1732,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 675734512}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 942b1edfdf963ba4b8829bbc09d01662, type: 3}
+  m_Script: {fileID: 11500000, guid: 80b50edef49e19e4bb7fe2591eb19676, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerScript
+  Velocidade: 8
+  KeyCodeEsq: 97
+  KeyCodeDir: 100
 --- !u!1 &727531475
 GameObject:
   m_ObjectHideFlags: 0
@@ -4244,9 +4250,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1767771016}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6baec53e1695c1143a8f546fb42df5b8, type: 3}
+  m_Script: {fileID: 11500000, guid: d283db32b18014d4dab07f71e0829ffa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OldClassics.Games.Arkanoid.BolaScript
+  Controlador: {fileID: 437649699}
+  cellPickOffset: 0.01
+  Velocidade: 6
+  Eixos: {x: 0, y: 0}
+  Direcoes: {x: 0, y: 0}
 --- !u!58 &1767771021
 CircleCollider2D:
   m_ObjectHideFlags: 0
