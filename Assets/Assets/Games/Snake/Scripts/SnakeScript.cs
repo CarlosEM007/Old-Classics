@@ -91,7 +91,7 @@ public class SnakeScript : MonoBehaviour
 
         if (collision.CompareTag("Corpo") && MorderCorpo)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
