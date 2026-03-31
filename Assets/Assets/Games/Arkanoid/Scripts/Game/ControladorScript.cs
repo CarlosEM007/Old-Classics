@@ -1,9 +1,6 @@
-using Assets.Assets.Games.Arkanoid.Enum;
 using System;
 using System.IO;
-using System.Runtime.CompilerServices;
 using TMPro;
-using UnityEditor.ShaderGraph.Serialization;
 using UnityEngine;
 
 public class ControladorScript : MonoBehaviour
