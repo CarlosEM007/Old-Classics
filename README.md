@@ -22,12 +22,17 @@ Conceitos iniciais de Game Design
 
 ## 🖼️ Screenshots
 
-(adicione aqui as imagens — vou te ensinar abaixo 👇)
+<p align="center">
+  <img src="./Imagens/Pong.jpeg" width="45%" />
+  <img src="./Imagens/Arkanoid.jpeg" width="45%" />
+</p>
 
-Pong
-Arkanoid
-Snake
-Tetris
+<p align="center">
+  <img src="./Imagens/Snake.jpeg" width="45%" />
+  <img src="./Imagens/Tetris.jpeg" width="45%" />
+</p>
+
+### (Vou melhorar o design do Tetris e Snake)
 
 <hr>
 
